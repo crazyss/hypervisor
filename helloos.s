@@ -28,11 +28,11 @@ myvar:
 main_start:
 #int $0x19
 
-    movb $2,%ah
-    movb $10,%dh
-    movb $20,%dl
-    movb $0,bh
-    int $0x10
+#    movb $2,%ah
+#    movb $10,%dh
+#    movb $20,%dl
+#    movb $0,bh
+#    int $0x10
 
 .byte 0xb8, 0x00, 0x00, 0x8e, 0xd0, 0xbc, 0x00, 0x7c
 .byte 0x8e, 0xd8, 0x8e, 0xc0, 0xbe, 0x74, 0x7c, 0x8a
@@ -42,7 +42,7 @@ main_start:
 
 
 .byte 0xa, 0xa
-.ascii "Red Hat!"
+.ascii "Hypervisor!"
 .byte 0xa
 .byte 0
 
