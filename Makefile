@@ -1,5 +1,6 @@
 all: helloos.s
 	as helloos.s -o helloos.o
-	objcopy -O binary helloos.o
+	ld helloos.o -Tdata 0x7c00 -o helloos -e 0
+	objcopy -O binary helloos hypervisor
 run.x86:
-	kvm -fda helloos.o -net none -no-kvm
+	kvm -d cpu -fda hypervisor -net none -no-kvm

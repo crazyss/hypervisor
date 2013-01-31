@@ -1,3 +1,6 @@
+
+BOOTSEG = 0x0
+
 .section .data
 start:
 #.byte 0xeb,0x4e,0x90
@@ -33,16 +36,87 @@ main_start:
 #    movb $20,%dl
 #    movb $0,bh
 #    int $0x10
+#
 
-.byte 0xb8, 0x00, 0x00, 0x8e, 0xd0, 0xbc, 0x00, 0x7c
-.byte 0x8e, 0xd8, 0x8e, 0xc0, 0xbe, 0x74, 0x7c, 0x8a
-.byte 0x04, 0x83, 0xc6, 0x01, 0x3c, 0x00, 0x74, 0x09
-.byte 0xb4, 0x0e, 0xbb, 0x0f, 0x00, 0xcd, 0x10, 0xeb
-.byte 0xee, 0xf4, 0xeb, 0xfd
+#    movl 0xe820,%eax
+#    int $0x15
 
 
-.byte 0xa, 0xa
-.ascii "Hypervisor!"
+#    movl $msg,%esi
+#  this statments not normal work.
+
+
+    movl $0,%eax
+    movl $0x7c00,%esp
+    mov %ax,%ss
+    mov %ax,%ds
+    mov %ax,%es
+#
+#    je fin
+#
+loadmsg:
+#    mov $msg,%si
+#
+##    movb $10,%cl
+#putloop:
+#    movb 0x7c99,%al
+##   add $1,%si
+##    cmp $0,%al
+##    je fin
+##
+##    movb %ds:(%si),%al
+#    movb $0x0e, %ah
+##    movw $15,%bx
+#    int $0x10
+##   jmp putloop
+#
+##
+##    
+
+#    movb 0x7cb3,%al
+#    movb $0x0e, %ah
+#    int $0x10
+#    movb 0x7cb4,%al
+#    movb $0x0e, %ah
+#    int $0x10
+#    movb 0x7cb5,%al
+#    movb $0x0e, %ah
+#    int $0x10
+#    movb 0x7cb6,%al
+#    movb $0x0e, %ah
+#    int $0x10
+#    movb 0x7cb7,%al
+#    movb $0x0e, %ah
+#    int $0x10
+
+##    movb $0x0e, %ah
+##    movb (%esi),%al
+##    int $0x10
+##    movb 1(%esi),%al
+##    int $0x10
+##    movb 2(%esi),%al
+##    int $0x10
+##    #movb (%si),%al
+#    int $0x10
+
+    movl $msg,%esi
+putloop:
+    lodsb
+    cmp $0,%al
+    je fin
+    movb $0x0e, %ah
+    int $0x10
+    jmp putloop
+    
+
+fin:
+    hlt
+    jmp fin
+
+
+.byte 0,2,31,23,21,312,31,23
+msg:
+.ascii "Hypervisor"
 .byte 0xa
 .byte 0
 
