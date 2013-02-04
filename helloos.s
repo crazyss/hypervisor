@@ -115,7 +115,7 @@ putloop:
 
 read_disk:
 #read disk to ram
-    movw $0x0820,%ax
+    movw $0x07e0,%ax
     movw %ax,%es
     movb $0, %ch #cylinder
     movb $0, %dh #header
@@ -144,7 +144,7 @@ retry:
 #
 next:
     mov %es,%ax         #move ES to point the next segment start-point
-    add $0x200,%ax
+    add $0x20,%ax
     mov %ax,%es
 #    
     add $1,%cl
@@ -201,6 +201,7 @@ debug:
 
 
 fin:
+    jmp lowlevel_init
     hlt
     jmp fin
 
@@ -226,8 +227,8 @@ len_debug:
 
 .byte 0x55,0xaa
 
-.byte 0xf0, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00
-.skip 4600
-.byte 0xf0, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00
-
-.skip 1469433
+#.byte 0xf0, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00
+#.skip 4600
+#.byte 0xf0, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00
+#
+#.skip 1469433
